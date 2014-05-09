@@ -1,0 +1,41 @@
+%p
+  %h1#notice= notice
+%p
+  %strong Title:
+  = @listing.title
+%p
+  %strong Detail:
+  = @listing.detail
+%p
+  %strong End on:
+  = @listing.end_on
+%p
+  %strong Reserve price:
+  = @listing.reserve_price
+
+#stripe-error
+-if @bid.errors[:base].present?
+  =@bid.errors[:base].join(", ")
+%p
+  =simple_form_for [@listing, @bid], remote: true do |f|
+    =f.input :prices
+    / =f.input :stripe_card_token, as: :hidden
+    / =f.input :card_number
+    / =f.input :cvc
+    / =f.input :card_month, as: :date, order: [:month]
+    / =f.input :card_year, as: :date, order: [:year], start_year: Date.today.year, end_year: Date.today.year + 5
+    =f.submit "submit", class: "btn btn-primary"
+
+#bid_listing
+  -@listing.bids.each do |bid|
+    %p
+      %span=bid.prices
+      %span=bid.user_full_name
+    %hr/ 
+
+- if @listing.user == current_user
+  = link_to 'Edit', edit_listing_path(@listing)
+  |
+= link_to 'Back', listings_path
+
+

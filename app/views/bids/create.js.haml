@@ -1,0 +1,3 @@
+$("#bid_listing").prepend("#{j render 'bid', bid: @bid}");
+$("##{dom_id(@bid)}").hide().fadeIn(500);
+$("#bid_prices").val("");

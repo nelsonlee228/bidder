@@ -1,0 +1,15 @@
+%table
+  %thead
+    %tr
+      %th Title
+      %th End on
+      %th Reserve price
+      %th Your bid price
+  %tbody
+    -@bids.each do |bid|
+      %tr
+        %td= bid.listing_title
+        %td= bid.listing_end_on
+        %td= bid.listing_reserve_price
+        %td= bid.prices
+        %td= link_to 'Show', bid.listing
